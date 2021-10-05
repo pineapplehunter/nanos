@@ -8,10 +8,10 @@ _start:
     la sp, _stack_end
     add s0,sp,zero
     jal zero,main
-    j _abort
+    j abort
 
 .section .text
-.global _abort
-_abort:
+.global abort
+abort:
     wfi
-    j _abort
+    j abort

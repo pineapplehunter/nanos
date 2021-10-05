@@ -3,18 +3,23 @@
 #![feature(global_asm)]
 
 mod asm;
+mod uart;
+use core::fmt::Write;
 
-const UART_ADDRESS: usize = 0x10000000;
-const HELLO: &[u8] = b"Hello World";
+use crate::uart::UART0;
 
 #[no_mangle]
-unsafe extern "C" fn main() {
-    for c in HELLO {
-        (UART_ADDRESS as *mut u8).write_volatile(*c);
-    }
+extern "C" fn main() {
+    write!(UART0, "Hello World! My name is {}!", "Shogo").unwrap();
+    todo!("cause a panic!");
+}
+
+extern "C" {
+    fn abort() -> !;
 }
 
 #[panic_handler]
-fn panic(_info: &core::panic::PanicInfo) -> ! {
-    loop {}
+fn panic(info: &core::panic::PanicInfo) -> ! {
+    write!(UART0, "a panic occured: {}", info).unwrap();
+    unsafe { abort() }
 }
