@@ -1,4 +1,4 @@
-.section .init, "ax"
+.section .text
 .global _start
 _start:
     .cfi_startproc
@@ -7,8 +7,7 @@ _start:
     .option norelax
     la gp, __global_pointer$
     .option pop
-    la sp, __stack_top
+    la sp, _stack_end
     add s0,sp,zero
     jal zero,main
     .cfi_endproc
-    .end
