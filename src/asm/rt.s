@@ -1,8 +1,6 @@
-.section .text
+.section .text.init
 .global _start
 _start:
-    .cfi_startproc
-    .cfi_undefined ra
     .option push
     .option norelax
     la gp, __global_pointer$
@@ -10,4 +8,10 @@ _start:
     la sp, _stack_end
     add s0,sp,zero
     jal zero,main
-    .cfi_endproc
+    j _abort
+
+.section .text
+.global _abort
+_abort:
+    wfi
+    j _abort
