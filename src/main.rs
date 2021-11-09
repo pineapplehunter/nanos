@@ -5,6 +5,7 @@
 
 extern crate alloc;
 
+use alloc::vec;
 use riscv::register::mhartid;
 
 mod nanos_alloc;
@@ -29,21 +30,14 @@ fn main() {
     let a = fib(10);
     println!("fib(10) = {}", a);
 
-    let mut v = alloc::vec::Vec::<i32>::new();
-    v.push(1);
-    v.push(2);
-    v.push(3);
-    println!("{:?}", v);
-
-    let mut b = alloc::vec::Vec::new();
-    for i in 5..100 {
-        b.push(i);
+    let mut v1 = vec![];
+    let mut v2 = vec![];
+    for i in 0..30 {
+        v1.push(i);
+        v2.push(i);
     }
-    println!("{:?}", b);
-    for i in 5..100 {
-        v.push(i);
-    }
-    println!("{:?}", v);
+    println!("{:?}", v1);
+    println!("{:?}", v2);
 }
 
 fn fib(n: u64) -> u64 {
