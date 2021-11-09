@@ -7,7 +7,7 @@ _start:
     .option pop
     la sp, __stack_end
     add s0,sp,zero
-    jal zero,main
+    jal zero,entry
     j abort
 
 .section .text
